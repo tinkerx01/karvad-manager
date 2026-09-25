@@ -31,6 +31,6 @@ p = "data/karvands.json"
 
 while True:
     usr_choice = input("Please pick an option:\n1.add new karvand\n2.show karvand info\n" \
-    "3.edit karvand info\n4.delete karvand\n5.get a report\n\n press 0 to exit ")
-    if usr_choice == "0":
+    "3.edit karvand info\n4.delete karvand\n5.get a report\n6.exit ")
+    if usr_choice == '6':
         break
