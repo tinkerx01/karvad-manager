@@ -42,24 +42,27 @@ def getInfo(field):
     return usr_inp
 
 def vfyName():
+    valid: False
     for i in range(3):
         fname = getInfo(field="first name")
         if fname.isalpha():
+            valid = True
             break
         print("Unsupported characters. Please try again.")
 
     for i in range(3):
         lname = getInfo(field="last name")
         if lname.isalpha():
+            valid = True
             break
         print("Unsupported characters. Please try again.")
             
     name = fname.capitalize() + " " + lname.capitalize()
-    return name
+    return name, valid
 
-def vfyemail():
-    email = getInfo(field="email")
-    return email 
+# def vfyemail():
+#     email = getInfo(field="email")
+#     return email 
 
 def nextId(data):
     krvd = data.get("karvands", [])
@@ -76,10 +79,13 @@ def addKrvd(p):
         data["bootcamp"] = {"title": "Karvand Python", "year": 2026}
     if "karvands" not in data:
         data["karvands"] = []
-
+    name, valid =  vfyName()
+    if not valid:
+        print("Too many invalid tries.")
+        return
     new_krvd = {
-        "full_name" : vfyName(),
-        "email" : vfyemail(),
+        "full_name" :name,
+        "email" : getInfo(field="email"),
         "city" : getInfo(field= "city").capitalize(),
         "degree" : getInfo(field="degree").capitalize(),
         "major" : getInfo(field = "major").capitalize(),
@@ -98,15 +104,34 @@ def showKrvd(p):
     for item in data["karvands"]:
         print(item)
 
-
-def searchById(path):
-
+def searchById(p):
+    data = loadJson(p)
+    if 'karvands' not in data:
+        print("No karvand found.")
+        return None
+    usr_inpt = getInfo(field="id").strip()
+    try:
+        trgt_id = int(usr_inpt)
+    except ValueError:
+        print("id must be a number.")
+        return None
+        
+    for karvand in data['karvands']:
+        if karvand.get('id') == trgt_id:
+            print(f"search result for id {trgt_id}:\n")
+            for item in karvand.items():
+                print(item)
+            return None
+    print(f"No karvand found with id {trgt_id}.")
+    return None
 
 def searchBySk(path):
-
+    print("failed to search")
+    return None
 
 def editKrvd(path):
-    print("Changes saved.")
+    print("failed to save.")
+    return None
 
 
 def deleteKrvd(path):
