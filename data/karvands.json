@@ -11,6 +11,71 @@
       "degree": "Dgr",
       "major": "Mjr",
       "id": 1
+    },
+    {
+      "id": 2,
+      "full_name": "Mahtab Shaabani",
+      "email": "m_shaabani@mail.org",
+      "city": "Kish",
+      "degree": "Masters",
+      "major": "Art",
+      "skills": [
+        {
+          "title": "matte drawing",
+          "level": "Advanced",
+          "score": 79
+        },
+        {
+          "title": "typing",
+          "level": "Intermediate",
+          "score": 90
+        },
+        {
+          "title": "knitting",
+          "level": "Intermediate",
+          "score": 56
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "full_name": "Pasha Ghorbani",
+      "email": "ghorbani83@mail.com",
+      "city": "Hamedan",
+      "degree": "Masters",
+      "major": "Medicine",
+      "skills": [
+        {
+          "title": "communication",
+          "level": "Intermediate",
+          "score": 67
+        },
+        {
+          "title": "teamwork",
+          "level": "Advanced",
+          "score": 100
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "full_name": "Mitra Naghme",
+      "email": "mina7474@example.com",
+      "city": "Mahshahr",
+      "degree": "Bachelor",
+      "major": "Humanity",
+      "skills": [
+        {
+          "title": "teamwork",
+          "level": "Intermediate",
+          "score": 56
+        },
+        {
+          "title": "typing",
+          "level": "Advanced",
+          "score": 98
+        }
+      ]
     }
   ]
 }

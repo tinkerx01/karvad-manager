@@ -186,9 +186,35 @@ def searchById(p):
     return None
 
 
-def searchBySk(p):
-    print("failed to search")
-    return None
+def searchBySkl(p):
+    data = loadJson(p)
+
+    if "karvands" not in data or not data["karvands"]:
+        print("No karvands to search.")
+        return None
+
+    query = getInfo(field="skill title").strip().lower()
+    if not query:
+        print("No skill entered.")
+        return None
+
+    results = []
+    for karvand in data["karvands"]:
+        for skill in karvand.get("skills", []):
+            if skill.get("title", "").lower() == query:
+                results.append((karvand["id"], karvand["full_name"], skill))
+                break  #don't add same karvand twice
+
+    if not results:
+        print(f"No karvands found with skill '{query}'.")
+        return None
+
+    print(f"\nKarvands with skill '{query}':")
+    for kid, name, skill in results:
+        print(f"  id {kid} — {name} "
+              f"(level: {skill.get('level', '?')}, score: {skill.get('score', '?')})")
+
+    return results
 
 
 def editKrvd(p):
@@ -309,7 +335,7 @@ while True:
     elif usr_choice == '3':
         searchById(p)    
     elif usr_choice == '4':
-        searchBySk(p)
+        searchBySkl(p)
     elif usr_choice == '5':
         editKrvd(p)
     elif usr_choice == '6':
