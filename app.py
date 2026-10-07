@@ -23,10 +23,10 @@ def loadJson(path):
         return {}
     
 def saveJson(path, data):
-    #Write data to a JSON file, creating parent directories if needed.
+    #write data to a JSON file, creating parent directories if needed.
     parent = os.path.dirname(path)
     if parent:                                
-        # skip when parent exists
+        #skip when parent exists
         os.makedirs(parent, exist_ok=True)
     try:
         with open(path, 'w', encoding='utf-8') as file:
@@ -90,9 +90,13 @@ def addKrvd(p):
     print(f"Karvand {new_krvd['full_name']} added successfully. Here's Karvand ID: {new_krvd['id']}:")
 
 
-def showKrvd(path):
-    krvd_list = {}
-    print(krvd_list)
+def showKrvd(p):
+    data = loadJson(p)
+    if not data:
+        print("nothing to show here.")
+        return None
+    for item in data["karvands"]:
+        print(item)
 
 
 def searchById(path):
