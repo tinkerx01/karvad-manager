@@ -1,0 +1,16 @@
+{
+  "bootcamp": {
+    "title": "Karvand Python",
+    "year": 2026
+  },
+  "karvands": [
+    {
+      "full_name": "Tina Chavoshi",
+      "email": "email.com",
+      "city": "Tehran",
+      "degree": "Dgr",
+      "major": "Mjr",
+      "id": 1
+    }
+  ]
+}

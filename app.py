@@ -109,6 +109,7 @@ def showKrvd(p):
     for item in data["karvands"]:
         print(item)
 
+
 def searchById(p):
     data = loadJson(p)
     if 'karvands' not in data:
@@ -130,9 +131,11 @@ def searchById(p):
     print(f"No karvand found with id {trgt_id}.")
     return None
 
-def searchBySk(path):
+
+def searchBySk(p):
     print("failed to search")
     return None
+
 
 def editKrvd(p):
     #read file
@@ -179,19 +182,48 @@ def editKrvd(p):
         return target
 
     target.update(changes)
-    saveJson(path, data)
+    saveJson(p, data)
     print(f"Karvand {target['id']} updated successfully.")
     return target
 
 
-def deleteKrvd(path):
+def deleteKrvd(p):
+        #read file
+    data = loadJson(p)
+    #check if empty
+    if 'karvands' not in data:
+        print("No karvand found.")
+        return None
     
-    sure = input("Are you sure?(y/n)")
-    if sure == 'y':
-        print("Karvand Deleted.")
-    else:
-        return
+    #get input and validate
+    usr_inpt = getInfo(field="id").strip()
+    try:
+        trgt_id = int(usr_inpt)
+    except ValueError:
+        print("id must be a number.")
+        return None
+    #handling value absence intead of putting it for last line
+    target = None
+    for karvand in data["karvands"]:
+        if karvand.get("id") == trgt_id:
+            target = karvand
+            break
+    if target is None:
+        print(f"No karvand found with id {trgt_id}.")
+        return None
+    
+    print(f"About to delete: {target.get('full_name', 'Unknown')} (id {trgt_id})")
 
+    sure = getInfo(field="'y' to confirm").strip().lower()
+    if sure != "y":
+        print("Delete cancelled.")
+        return None
+
+    # remove it and save
+    data["karvands"].remove(target)
+    saveJson(p, data)
+    print(f"Karvand {trgt_id} deleted successfully.")
+    return target
 
 def reports(path):
     report = {}
@@ -218,7 +250,7 @@ while True:
     elif usr_choice == '4':
         searchBySk(p)
     elif usr_choice == '5':
-        editKrvd()
+        editKrvd(p)
     elif usr_choice == '6':
         deleteKrvd(p)
     elif usr_choice == '7':
