@@ -1,5 +1,5 @@
 import json
-#توابع کمکی
+###############توابع کمکی###############
 def loadJson():
     #read info from json file. convert into format that program can use.
     with open(p) as file:
@@ -20,7 +20,7 @@ def getinfo(field):
     usr_inp = input()
 
 
-#توابع اصلی
+#################توابع اصلی##################
 def addKrvd(p):
     loadJson(p)
     print("Karvand added successfully")
@@ -62,21 +62,23 @@ while True:
                        "4.search for karvand by skill\n" \
                        "5.edit karvand info\n" \
                        "6.delete karvand\n" \
-                       "7.report" \
-                       "8.exit")
+                       "7.report\n" \
+                       "8.exit: ")
     if usr_choice == '1':
-        addKrvd()
-    if usr_choice == '2':
-        showKrvd()
-    if usr_choice == '3':
-        searchById()    
-    if usr_choice == '4':
-        searchBySk()
-    if usr_choice == '5':
+        addKrvd(p)
+    elif usr_choice == '2':
+        showKrvd(p)
+    elif usr_choice == '3':
+        searchById(p)    
+    elif usr_choice == '4':
+        searchBySk(p)
+    elif usr_choice == '5':
         editKrvd()
-    if usr_choice == '6':
-        deleteKrvd()
-    if usr_choice == '7':
-        reports()
-    if usr_choice == '8':
+    elif usr_choice == '6':
+        deleteKrvd(p)
+    elif usr_choice == '7':
+        reports(p)
+    elif usr_choice == '8':
         break
+    else:
+        print("Invalid input. Try again")
