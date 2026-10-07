@@ -70,7 +70,60 @@ def nextId(data):
         return 1
     return max(k["id"] for k in krvd) + 1
 
+def collectSkills():
+    #enter zero or more skills.
+    LEVELS = {1: "Beginner", 2: "Intermediate", 3: "Advanced"}
+    skills = []
 
+    while True:
+        more = getInfo(field="add a skill? (y/n)").strip().lower()
+        if more != "y":
+            break
+
+        title = getInfo(field="skill title").strip()
+
+        #safecheck score
+        for _ in range(3):
+            raw = getInfo(field="skill level\n1. Beginner\n2. Intermediate\n3. Advanced").strip()
+            try:
+                choice = int(raw)
+                if choice not in (1, 2, 3):
+                    raise ValueError  # force the same handler
+            except ValueError:
+                print("Expected a number from 1 to 3.")
+                continue
+            level = LEVELS[choice]
+            break
+        else:
+            print("Too many invalid tries.")
+            level = None
+
+            score = None
+        for _ in range(3):
+            raw = getInfo(field="skill score (0-100)").strip()
+            try:
+                val = float(raw)
+            except ValueError:
+                print("Score must be a number.")
+                continue
+            if not (0 <= val <= 100):
+                print("Score must be between 0 and 100.")
+                continue
+            # store as int if it's a whole number, else float
+            score = int(val) if val.is_integer() else val
+            break
+
+        if score is None:
+            print("Skipping this skill due to invalid score.")
+            continue
+
+        skills.append({
+            "title": title,
+            "level": level,
+            "score": score,
+        })
+
+    return skills
 #################توابع اصلی##################
 def addKrvd(p):
     data = loadJson(p)
@@ -89,16 +142,17 @@ def addKrvd(p):
         print("Too many invalid tries.")
         return
     new_krvd = {
+        "id" : nextId(data),
         "full_name" :name,
         "email" : getInfo(field="email"),
         "city" : getInfo(field= "city").capitalize(),
         "degree" : getInfo(field="degree").capitalize(),
         "major" : getInfo(field = "major").capitalize(),
-        "id" : nextId(data)
+        "skills": collectSkills(),
     }
     data["karvands"].append(new_krvd)
     saveJson(p, data)
-    print(f"Karvand {new_krvd['full_name']} added successfully. Here's Karvand ID: {new_krvd['id']}:")
+    print(f"Karvand {new_krvd['full_name']} added successfully. Here's Karvand ID: {new_krvd['id']}")
 
 
 def showKrvd(p):
@@ -219,14 +273,21 @@ def deleteKrvd(p):
         print("Delete cancelled.")
         return None
 
-    # remove it and save
+    #remove it and save
+    #cannot replace removed id in the same file
+    #pros: id is unique. preserves logs
+    #cons: inconsistency in database (1 > doesn't exist while 2 exists)
+    #design choice? non-reusable id
+
     data["karvands"].remove(target)
     saveJson(p, data)
     print(f"Karvand {trgt_id} deleted successfully.")
     return target
 
 def reports(path):
+    data = loadJson(p)
     report = {}
+    saveJson("data/reports.json", report)
     print(report)
 
 

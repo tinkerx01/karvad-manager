@@ -1,0 +1,47 @@
+{
+  "bootcamp": {
+    "title": "Karvand Python",
+    "year": 2026
+  },
+  "karvands": [
+    {
+      "full_name": "Tina Chavoshi",
+      "email": "example",
+      "city": "Therna",
+      "degree": "Ojsj",
+      "major": "Oklpk",
+      "id": 3
+    },
+    {
+      "full_name": "Tina Chavoshi",
+      "email": "fooslsl",
+      "city": "Loooooooo",
+      "degree": "Po",
+      "major": "Mo",
+      "id": 4
+    },
+    {
+      "full_name": "Tina Chavoshi",
+      "email": "yeeee",
+      "city": "Toooo",
+      "degree": "Goooo",
+      "major": "Mooooo",
+      "id": 5
+    },
+    {
+      "id": 6,
+      "full_name": "Tina Chavoshi",
+      "email": "kooool",
+      "city": "Poooool",
+      "degree": "Fooool",
+      "major": "Aaaaa",
+      "skills": [
+        {
+          "title": "code",
+          "level": "1",
+          "score": 50
+        }
+      ]
+    }
+  ]
+}
