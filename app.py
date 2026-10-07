@@ -79,6 +79,11 @@ def addKrvd(p):
         data["bootcamp"] = {"title": "Karvand Python", "year": 2026}
     if "karvands" not in data:
         data["karvands"] = []
+
+    #only validates name format
+    #since the others could be easily 
+    #handled using regex
+
     name, valid =  vfyName()
     if not valid:
         print("Too many invalid tries.")
@@ -129,9 +134,54 @@ def searchBySk(path):
     print("failed to search")
     return None
 
-def editKrvd(path):
-    print("failed to save.")
-    return None
+def editKrvd(p):
+    #read file
+    data = loadJson(p)
+    #check if empty
+    if 'karvands' not in data:
+        print("No karvand found.")
+        return None
+    
+    #get input and validate
+    usr_inpt = getInfo(field="id").strip()
+    try:
+        trgt_id = int(usr_inpt)
+    except ValueError:
+        print("id must be a number.")
+        return None
+    #handling value absence intead of putting it for last line
+    target = None
+    for karvand in data["karvands"]:
+        if karvand.get("id") == trgt_id:
+            target = karvand
+            break
+    if target is None:
+        print(f"No karvand found with id {trgt_id}.")
+        return None
+    
+    #user can only change these
+    editable = ["email", "city", "degree", "major"]
+    #giving user a chance to quit
+    print("\nPress Enter to keep the current value.\n")
+    changes = {}
+    #loop file info, find matching fields
+    for field in editable:
+        current = target.get(field, "")
+        new_value = getInfo(field=f"{field}[{current}]").strip().capitalize()
+
+        if new_value == "":
+            continue  # keep current
+
+        changes[field] = new_value
+
+    if not changes:
+        print("No changes made.")
+        return target
+
+    target.update(changes)
+    saveJson(path, data)
+    print(f"Karvand {target['id']} updated successfully.")
+    return target
 
 
 def deleteKrvd(path):
