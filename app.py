@@ -1,6 +1,28 @@
 import json
+#توابع کمکی
+def loadJson():
+    #read info from json file. convert into format that program can use.
+    with open(p) as file:
+        try:
+            for i in file:
+                file.load()
+        except FileNotFoundError:
+            print("no such file")
 
-def addKrvd(path):
+def writeIntoFile():
+    #convert into json, write to file. if not exists. 
+    print("failed to write")
+
+def getinfo(field):
+    #choose custom field to print msg and get input
+    msg = "Enter karvand "
+    print(msg + field, end = ": ")
+    usr_inp = input()
+
+
+#توابع اصلی
+def addKrvd(p):
+    loadJson(p)
     print("Karvand added successfully")
 
 
@@ -8,6 +30,9 @@ def showKrvd(path):
     krvd_list = {}
     print(krvd_list)
 
+def searchById(path):
+
+def searchBySk(path):
 
 def editKrvd(path):
     print("Changes saved.")
@@ -30,7 +55,28 @@ def reports(path):
 p = "data/karvands.json"
 
 while True:
-    usr_choice = input("Please pick an option:\n1.add new karvand\n2.show karvand info\n" \
-    "3.edit karvand info\n4.delete karvand\n5.get a report\n6.exit ")
+    usr_choice = input("Please pick an option:\n" \
+                       "1.add new karvand\n" \
+                       "2.show all karvand\n" \
+                       "3.search for karvand by id\n" \
+                       "4.search for karvand by skill\n" \
+                       "5.edit karvand info\n" \
+                       "6.delete karvand\n" \
+                       "7.report" \
+                       "8.exit")
+    if usr_choice == '1':
+        addKrvd()
+    if usr_choice == '2':
+        showKrvd()
+    if usr_choice == '3':
+        searchById()    
+    if usr_choice == '4':
+        searchBySk()
+    if usr_choice == '5':
+        editKrvd()
     if usr_choice == '6':
+        deleteKrvd()
+    if usr_choice == '7':
+        reports()
+    if usr_choice == '8':
         break
