@@ -1,0 +1,18 @@
+{
+  "total karvands": 4,
+  "total skill": 7,
+  "avg skill score": 78.0,
+  "cities": [
+    "Tehran",
+    "Kish",
+    "Hamedan",
+    "Mahshahr"
+  ],
+  "unique skills": [
+    "matte drawing",
+    "typing",
+    "knitting",
+    "communication",
+    "teamwork"
+  ]
+}

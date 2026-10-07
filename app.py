@@ -310,11 +310,44 @@ def deleteKrvd(p):
     print(f"Karvand {trgt_id} deleted successfully.")
     return target
 
-def reports(path):
+
+def reports(p):
+    results = []
+    cities = []
+    total_karvand = 0
+    total_skill = 0
+    total_scores = 0
+    seen_titles = set()
+
     data = loadJson(p)
-    report = {}
+    if "karvands" not in data or not data["karvands"]:
+        print("No karvands found.")
+        return None
+    for item in data["karvands"]:
+        total_karvand += 1
+        cities.append(item.get("city", "Unknown"))
+        for skill in item.get("skills", []):
+            total_skill += 1
+            total_scores += skill.get("score", 0)
+
+            title = skill.get("title", "").strip()
+            key = title.lower()
+            if key and key not in seen_titles:
+                seen_titles.add(key)
+                results.append(title)
+    avg_score = (total_scores / total_skill) if total_skill else 0
+
+    report = {
+        'total karvands': total_karvand,
+        'total skill': total_skill,
+        'avg skill score': avg_score,
+        'cities' : cities,
+        'unique skills' : results
+    }
+
     saveJson("data/reports.json", report)
-    print(report)
+    for r in report.items():
+        print(r)
 
 
 p = "data/karvands.json"
